@@ -1,0 +1,26 @@
+---
+
+- name: Collect IOS facts
+  hosts: 192.168.100.1
+
+  tasks:
+
+    - name: Facts
+      ios_facts:
+        gather_subset: all
+
+    - name: Show ansible_net_all_ipv4_addresses fact
+      debug: var=ansible_net_all_ipv4_addresses
+
+    - name: Show ansible_net_interfaces fact
+      debug: msg="{{ ansible_net_interfaces.keys() | select('match', '^Ethernet0/3') | list }}"
+
+    - name: Config QoS policy
+      ios_config:
+        parents:
+          - policy-map OUT_QOS
+          - class class-default
+        lines:
+          - shape average 100000000 1000000
+
+
