@@ -14,7 +14,7 @@
 Пример выполнения скрипта:
 $ python task_4_5c.py
 Введите имя устройства: r1
-Введите имя параметра (ios, model, vendor, location, ip): ip
+Введите имя параметра (ios, model, vendor, location, ip): ips
 Такого параметра нет
 
 Ограничение: нельзя изменять словарь london_co.
