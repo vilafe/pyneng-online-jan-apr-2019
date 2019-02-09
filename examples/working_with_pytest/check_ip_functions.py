@@ -2,12 +2,11 @@ import ipaddress
 import time
 
 
-def check_ip(ip_address, verbose=False):
+def check_ip(ip_address):
     try:
         ipaddress.ip_interface(ip_address)
         return True
     except ValueError as err:
-        if verbose: print(err)
         return False
 
 
