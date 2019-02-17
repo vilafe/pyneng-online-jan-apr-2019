@@ -10,6 +10,8 @@
 
 Функция ничего не возвращает.
 
+Проверить функцию на файле cisco_nat_config.txt.
+
 Пример правил NAT cisco IOS
 ip nat inside source static tcp 10.1.2.84 22 interface GigabitEthernet0/1 20022
 ip nat inside source static tcp 10.1.9.5 22 interface GigabitEthernet0/1 20023
@@ -23,7 +25,7 @@ object network LOCAL_10.1.9.5
  nat (inside,outside) static interface service tcp 22 20023
 
 В файле с правилами для ASA:
-- не должно быть пустых строкмежду правилами
+- не должно быть пустых строк между правилами
 - перед строками "object network" не должны быть пробелы
 - перед остальными строками должен быть один пробел
 
