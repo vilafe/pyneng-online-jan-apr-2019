@@ -1,5 +1,5 @@
 import pexpect
-
+import re
 
 def send_command_pexpect(ipaddress, username, password, enable_pass, command):
     print('Connection to device {}'.format(ipaddress))
@@ -21,7 +21,9 @@ def send_command_pexpect(ipaddress, username, password, enable_pass, command):
 
         while True:
             match = ssh.expect(['--More--', '>', pexpect.TIMEOUT])
-            page = ssh.before.decode('utf-8')
+            page = ssh.before.decode('ascii')
+            # delete backspace
+            page = re.sub('\x08+', '\n', page)
             command_output += page
             if match == 1:
                 break
