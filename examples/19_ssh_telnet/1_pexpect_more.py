@@ -20,7 +20,7 @@ def send_command_pexpect(ipaddress, username, password, enable_pass, command):
         command_output= ''
 
         while True:
-            match = ssh.expect(['--More--', '>', pexpect.TIMEOUT])
+            match = ssh.expect(['--More--', '#', pexpect.TIMEOUT])
             page = ssh.before.decode('ascii')
             # delete backspace
             page = re.sub('\x08+', '\n', page)
@@ -40,5 +40,7 @@ if __name__ == '__main__':
     user = password = enable_pass = 'cisco'
     ip = '192.168.100.1'
 
-    print(send_command_pexpect(ip, user, password, enable_pass, 'sh ip int br'))
+    result = send_command_pexpect(ip, user, password, enable_pass, 'sh run')
+    with open('result.txt', 'w') as f:
+        f.write(result)
 
