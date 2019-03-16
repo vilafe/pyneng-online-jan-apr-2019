@@ -3,10 +3,10 @@ import time
 import getpass
 import sys
 
-command = sys.argv[1].encode('utf-8')
-user = input('Username: ').encode('utf-8')
-password = getpass.getpass().encode('utf-8')
-enable_pass = getpass.getpass(prompt='Enter enable password: ').encode('utf-8')
+command = sys.argv[1].encode('ascii')
+user = input('Username: ').encode('ascii')
+password = getpass.getpass().encode('ascii')
+enable_pass = getpass.getpass(prompt='Enter enable password: ').encode('ascii')
 
 devices_ip = ['192.168.100.1', '192.168.100.2', '192.168.100.3']
 
@@ -28,7 +28,7 @@ for ip in devices_ip:
 
         time.sleep(1)
 
-        output = t.read_very_eager().decode('utf-8')
+        output = t.read_very_eager().decode('ascii')
         print(output)
 '''
 Example:

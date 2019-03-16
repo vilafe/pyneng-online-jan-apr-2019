@@ -29,11 +29,11 @@ for ip in devices_ip:
 
         ssh.send('terminal length 0\n')
         time.sleep(1)
-        ssh.recv(1000).decode('utf-8')
+        ssh.recv(1000).decode('ascii')
 
         ssh.send(command + '\n')
         time.sleep(2)
-        result = ssh.recv(5000).decode('utf-8')
+        result = ssh.recv(5000).decode('ascii')
         print(result)
 '''
 Example:

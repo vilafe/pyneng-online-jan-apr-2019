@@ -6,23 +6,23 @@ def send_command_telnetlib(ipaddress, username, password, enable_pass, command):
     t = telnetlib.Telnet('192.168.100.1')
 
     t.read_until(b'Username:')
-    t.write(username.encode('utf-8') + b'\n')
+    t.write(username.encode('ascii') + b'\n')
 
     t.read_until(b'Password:')
-    t.write(password.encode('utf-8') + b'\n')
+    t.write(password.encode('ascii') + b'\n')
     t.write(b'enable\n')
 
     t.read_until(b'Password:')
-    t.write(enable_pass.encode('utf-8') + b'\n')
+    t.write(enable_pass.encode('ascii') + b'\n')
 
     t.read_until(b'#')
 
-    t.write(command.encode('utf-8') + b'\n')
+    t.write(command.encode('ascii') + b'\n')
     result = ''
 
     while True:
         index, match, output = t.expect([b'--More--', b'#'], timeout=5)
-        result += output.decode('utf-8')
+        result += output.decode('ascii')
         if index == 1:
             break
         t.write(b' ')

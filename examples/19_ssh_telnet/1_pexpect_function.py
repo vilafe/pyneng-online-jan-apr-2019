@@ -10,7 +10,7 @@ def send_ios_show_pexpect(ip, command, username=None, password=None, enable=None
     if not enable:
         enable = getpass.getpass(prompt='Enter enable password: ')
     print('Connection to device {}'.format(ip))
-    with pexpect.spawn('ssh {}@{}'.format(username, ip), encoding='utf-8') as ssh:
+    with pexpect.spawn('ssh {}@{}'.format(username, ip), encoding='ascii') as ssh:
         ssh.logfile_read = sys.stdout
 
         ssh.expect('Password:')

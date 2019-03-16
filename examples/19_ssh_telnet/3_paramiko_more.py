@@ -29,7 +29,7 @@ def send_command_paramiko(ipaddress, username, password, enable_pass, command):
         result = ''
         while True:
             try:
-                page = ssh.recv(5000).decode('utf-8')
+                page = ssh.recv(5000).decode('ascii')
             except paramiko.ssh_exception.socket.timeout:
                 break
             result += page

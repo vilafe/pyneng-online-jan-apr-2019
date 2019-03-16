@@ -29,7 +29,7 @@ for ip in devices_ip:
         ssh.sendline(command)
 
         ssh.expect('#')
-        print(ssh.before.decode('utf-8'))
+        print(ssh.before.decode('ascii'))
 '''
 Example:
 
