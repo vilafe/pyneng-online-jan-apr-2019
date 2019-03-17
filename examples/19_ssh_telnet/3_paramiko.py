@@ -25,7 +25,7 @@ for ip in devices_ip:
     with client.invoke_shell() as ssh:
         ssh.send('enable\n')
         ssh.send(enable_pass + '\n')
-        time.sleep(1)
+        time.sleep(0.5)
 
         ssh.send('terminal length 0\n')
         time.sleep(1)

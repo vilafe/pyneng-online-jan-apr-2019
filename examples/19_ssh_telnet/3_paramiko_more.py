@@ -43,5 +43,7 @@ command = 'sh run'
 user = password = enable_pass = 'cisco'
 ip = '192.168.100.1'
 
-print(send_command_paramiko(ip, user, password, enable_pass, 'sh run'))
+result = send_command_paramiko(ip, user, password, enable_pass, 'sh run')
+with open('result.txt', 'w') as f:
+    f.write(result)
 
