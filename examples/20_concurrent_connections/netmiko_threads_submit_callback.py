@@ -3,47 +3,61 @@ from pprint import pprint
 from datetime import datetime
 import time
 from itertools import repeat
+import logging
+import re
 
 import yaml
 from netmiko import ConnectHandler
 from netmiko.ssh_exception import NetMikoAuthenticationException
 
-start_msg = '===> {} Connection to device: {}'
-received_msg = '<=== {} Received result from device: {}'
+logging.getLogger("paramiko").setLevel(logging.WARNING)
 
+logging.basicConfig(
+    format = '%(threadName)s %(name)s %(levelname)s: %(message)s',
+    level=logging.INFO)
 
-def connect_ssh(device_dict, command):
-    print(start_msg.format(datetime.now().time(), device_dict['ip']))
-    if device_dict['ip'] == '192.168.100.1':
-        time.sleep(10)
+start_msg = '===> {} Connection: {}'
+received_msg = '<=== {} Received: {}'
+parsed_msg = '#### {} Parsed: {}'
+
+def send_show(device_dict, command):
+    ip = device_dict['ip']
+    logging.info(start_msg.format(datetime.now().time(), ip))
+    if ip == '192.168.100.1': time.sleep(5)
     with ConnectHandler(**device_dict) as ssh:
         ssh.enable()
         result = ssh.send_command(command)
-    return (device_dict['ip'], result)
+        logging.info(received_msg.format(datetime.now().time(), ip))
+    return (ip, result)
 
 
-def print_done(future):
+def parse_sh_ip_int_br(future):
+    regex = (r'(\S+) +([\d.]+) +\w+ +\w+ +'
+             r'(up|down|administratively down) +(up|down)')
     ip, output = future.result()
-    print(received_msg.format(datetime.now().time(), ip))
-    print(output)
-    return ip, output
+    parsed = [match.groups() for match in re.finditer(regex, output)]
+    logging.info(parsed_msg.format(datetime.now().time(), ip))
+    return (ip, parsed)
 
 
-def threads_conn(function, devices, command, limit=2, callback=None):
-    all_results = []
-    with ThreadPoolExecutor(max_workers=limit) as executor:
-        futures = []
+def send_command_to_devices(devices, command, callback=None):
+    data = {}
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        future_ssh = []
         for device in devices:
-            future = executor.submit(function, device, command='sh ip int br')
-            if callback: future.add_done_callback(callback)
-            futures.append(future)
-        for f in as_completed(futures):
-            all_results.append(f.result())
-    return all_results
+            future = executor.submit(send_show, device, command)
+            if callback:
+                future.add_done_callback(callback)
+            future_ssh.append(future)
+        for f in as_completed(future_ssh):
+            ip, result = f.result()
+            data[ip] = result
+    return data
 
 
 if __name__ == '__main__':
-    devices = yaml.load(open('devices.yaml'))
-    all_done = threads_conn(
-        connect_ssh, devices, command='sh clock', callback=print_done)
-    pprint(all_done)
+    with open('devices.yaml') as f:
+        devices = yaml.load(f, Loader=yaml.FullLoader)
+    done = send_command_to_devices(devices, 'sh ip int br', callback=parse_sh_ip_int_br)
+    pprint(done, width=120)
+
