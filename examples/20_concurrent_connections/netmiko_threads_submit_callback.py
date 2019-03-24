@@ -5,6 +5,7 @@ import time
 from itertools import repeat
 import logging
 import re
+import csv
 
 import yaml
 from netmiko import ConnectHandler
@@ -37,7 +38,9 @@ def parse_sh_ip_int_br(future):
     ip, output = future.result()
     parsed = [match.groups() for match in re.finditer(regex, output)]
     logging.info(parsed_msg.format(datetime.now().time(), ip))
-    return (ip, parsed)
+    with open(f'parsed_{ip}_sh_ip_int_br.txt', 'w', encoding='utf-8') as f:
+        writer = csv.writer(f)
+        writer.writerows(parsed)
 
 
 def send_command_to_devices(devices, command, callback=None):
