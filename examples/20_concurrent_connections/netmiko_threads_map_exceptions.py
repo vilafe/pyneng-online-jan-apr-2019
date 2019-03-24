@@ -28,7 +28,7 @@ def send_show(device_dict, command):
             ssh.enable()
             result = ssh.send_command(command)
             logging.info(received_msg.format(datetime.now().time(), ip))
-        return {ip: result}
+        return result
     except NetMikoAuthenticationException as err:
         logging.warning(err)
 
@@ -37,8 +37,8 @@ def send_command_to_devices(devices, command):
     data = {}
     with ThreadPoolExecutor(max_workers=2) as executor:
         result = executor.map(send_show, devices, repeat(command))
-        for output in result:
-            data.update(output)
+        for device, output in zip(devices, result):
+            data[device['ip']] = output
     return data
 
 
