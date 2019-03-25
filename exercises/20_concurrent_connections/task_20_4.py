@@ -30,7 +30,7 @@ Ethernet0/0                192.168.100.3   YES NVRAM  up                    up
 Ethernet0/1                unassigned      YES NVRAM  administratively down down
 
 Пример вызова функции:
-In [5]: send_commands_to_devices(device, show='sh clock', filename='result.txt')
+In [5]: send_commands_to_devices(devices, show='sh clock', filename='result.txt')
 
 In [6]: cat result.txt
 R1#sh clock
@@ -40,9 +40,9 @@ R2#sh clock
 R3#sh clock
 *04:56:40.354 UTC Sat Mar 23 2019
 
-In [7]: send_commands_to_devices(device, config=['logging 10.5.5.5'], filename='result.txt')
+In [11]: send_commands_to_devices(devices, config='logging 10.5.5.5', filename='result.txt')
 
-In [8]: cat result.txt
+In [12]: cat result.txt
 config term
 Enter configuration commands, one per line.  End with CNTL/Z.
 R1(config)#logging 10.5.5.5
@@ -55,6 +55,28 @@ R2#config term
 Enter configuration commands, one per line.  End with CNTL/Z.
 R3(config)#logging 10.5.5.5
 R3(config)#end
+R3#
+
+In [13]: send_commands_to_devices(devices,
+                                  config=['router ospf 55', 'network 0.0.0.0 255.255.255.255 area 0'],
+                                  filename='result.txt')
+
+In [14]: cat result.txt
+config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+R1(config)#router ospf 55
+R1(config-router)#network 0.0.0.0 255.255.255.255 area 0
+R1(config-router)#end
+R1#config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#router ospf 55
+R2(config-router)#network 0.0.0.0 255.255.255.255 area 0
+R2(config-router)#end
+R2#config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#router ospf 55
+R3(config-router)#network 0.0.0.0 255.255.255.255 area 0
+R3(config-router)#end
 R3#
 
 
