@@ -18,8 +18,8 @@ def test_function_return_value(three_routers_from_devices_yaml,
     dest_filename = tmpdir.mkdir("test_tasks").join("task_20_2.txt")
 
     return_value = task_20_2.send_show_command_to_devices(
-        three_routers_from_devices_yaml,
-        command, dest_filename, limit=3)
+        devices=three_routers_from_devices_yaml,
+        command=command, filename=dest_filename, limit=3)
     assert return_value == None, "Функция должна возвращать None"
 
     dest_file_content = dest_filename.read().strip()
