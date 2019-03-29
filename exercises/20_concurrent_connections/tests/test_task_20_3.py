@@ -14,7 +14,7 @@ def test_functions_created():
 def test_function_return_value(three_routers_from_devices_yaml,
                                r1_r2_r3_test_connection, tmpdir):
     routers_ip = [router['ip'] for router in three_routers_from_devices_yaml]
-    commands = ['sh ip int br', 'sh ip arp', 'sh ip arp']
+    commands = ['sh ip int br', 'show ip int bri | exc unass', 'show int desc']
     out1, out2, out3 = [r.send_command(command)
                         for r, command in zip(r1_r2_r3_test_connection, commands)]
     dest_filename = tmpdir.mkdir("test_tasks").join("task_20_3.txt")
