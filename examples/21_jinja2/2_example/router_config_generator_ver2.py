@@ -2,7 +2,8 @@
 from jinja2 import Environment, FileSystemLoader
 import yaml
 
-env = Environment(loader=FileSystemLoader('templates'))
+loader_new = FileSystemLoader('templates')
+env = Environment(loader=loader_new)
 template = env.get_template('router_template.txt')
 
 routers = yaml.load(open('routers_info.yml'))

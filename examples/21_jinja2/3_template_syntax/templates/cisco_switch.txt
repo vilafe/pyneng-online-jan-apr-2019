@@ -1,0 +1,10 @@
+service ...
+
+{% include 'vlans.txt' %}
+
+logging ...
+
+{% if ospf is defined %}
+{% include 'ospf.txt' %}
+{% endif %}
+

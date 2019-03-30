@@ -1,0 +1,10 @@
+{% extends "hq_router.txt" %}
+
+{% block localalias %}
+HELLO!!!!!
+{% endblock%}
+
+{% block bgp %}
+{{ super() }}
+###############################
+{% endblock%}

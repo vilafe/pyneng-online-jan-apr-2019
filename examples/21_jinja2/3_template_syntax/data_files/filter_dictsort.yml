@@ -1,5 +1,5 @@
 trunks:
-  Fa0/1:
+  Fa0/8:
     action: add
     vlans: 10,20
   Fa0/2:

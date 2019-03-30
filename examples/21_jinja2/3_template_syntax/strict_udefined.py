@@ -6,8 +6,8 @@ import os
 
 #$ python cfg_gen.py templates/for.txt data_files/for.yml
 TEMPLATE_DIR, template_file = os.path.split(sys.argv[1])
-
 VARS_FILE = sys.argv[2]
+
 
 env = Environment(
     loader=FileSystemLoader(TEMPLATE_DIR),
@@ -15,6 +15,7 @@ env = Environment(
     trim_blocks=True, lstrip_blocks=True)
 template = env.get_template(template_file)
 
-vars_dict = yaml.load(open(VARS_FILE))
+with open(VARS_FILE) as f
+    vars_dict = yaml.load(f, Loader=yaml.FullLoader)
 
 print(template.render(vars_dict))

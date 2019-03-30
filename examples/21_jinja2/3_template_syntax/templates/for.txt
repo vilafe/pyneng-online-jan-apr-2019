@@ -1,4 +1,4 @@
-hostname {{ name }}
+hostname {{ hostname }}
 
 interface Loopback0
  ip address 10.0.0.{{ id }} 255.255.255.255
@@ -7,6 +7,7 @@ interface Loopback0
 vlan {{ vlan }}
  name {{ name }}
 {% endfor %}
+
 
 router ospf 1
  router-id 10.0.0.{{ id }}

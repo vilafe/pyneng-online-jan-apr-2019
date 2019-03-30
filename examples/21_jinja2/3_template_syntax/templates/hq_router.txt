@@ -10,11 +10,12 @@ alias exec top sh proc cpu sorted | excl 0.00%__0.00%__0.00%
 alias exec c conf t
 alias exec diff sh archive config differences nvram:startup-config system:running-config
 alias exec desc sh int desc | ex down
+ {% block localalias %}
+ {% endblock %}
 {% endblock %}
 
 
 {% block ospf %}
-{{ super() }}
  {% for networks in ospf %}
  network {{ networks.network }} area {{ networks.area }}
  {% endfor %}

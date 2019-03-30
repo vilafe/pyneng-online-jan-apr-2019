@@ -11,4 +11,5 @@ trunks:
       - 30
   Fa0/3:
     action: delete
-    vlans: 10
+    vlans:
+      - 10
