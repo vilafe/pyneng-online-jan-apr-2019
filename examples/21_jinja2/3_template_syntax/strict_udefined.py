@@ -15,7 +15,7 @@ env = Environment(
     trim_blocks=True, lstrip_blocks=True)
 template = env.get_template(template_file)
 
-with open(VARS_FILE) as f
+with open(VARS_FILE) as f:
     vars_dict = yaml.load(f, Loader=yaml.FullLoader)
 
 print(template.render(vars_dict))
