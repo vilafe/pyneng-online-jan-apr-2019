@@ -20,7 +20,7 @@ def test_function_return_value():
     )
     correct_value_access = (
         'interface Fa0/1\n'
-        'switcport mode access\n'
+        'switchport mode access\n'
         'switchport access vlan 10'
     )
     correct_value_trunk = (
