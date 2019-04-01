@@ -1,18 +1,21 @@
+import sys
 import clitable
 
-output_sh_ip_route_ospf = open('output/sh_ip_route_ospf.txt').read()
 
-cli_table = clitable.CliTable('index', 'templates')
+command, output_file = sys.argv[1:3]
+attributes = {'Command': command}
+with open(output_file) as f:
+    output = f.read()
 
-attributes = {'Command': 'show ip route ospf'}
+cli= clitable.CliTable('index', 'templates')
 
-cli_table.ParseCmd(output_sh_ip_route_ospf, attributes)
-print('CLI Table output:\n', cli_table)
+cli.ParseCmd(output, attributes)
+print('CLI Table output:\n', cli)
 
-print('Formatted Table:\n', cli_table.FormattedTable())
+print('Formatted Table:\n', cli.FormattedTable())
 
-data_rows = [list(row) for row in cli_table]
-header = list(cli_table.header)
+data_rows = [list(row) for row in cli]
+header = list(cli.header)
 
 print(header)
 for row in data_rows:
