@@ -3,7 +3,7 @@ Value List MEMBERS (\w+\d+\/\d+)
 
 Start
   ^\d+.* -> Continue.Record
-  ^\d+ +${CHANNEL}\(\S+ +[\w-]+ +[\w ]+ +${MEMBERS}\( -> Continue
-  ^\d+ +${CHANNEL}\(\S+ +[\w-]+ +[\w ]+ +\S+ +${MEMBERS}\( -> Continue
-  ^\d+ +${CHANNEL}\(\S+ +[\w-]+ +[\w ]+ +(\S+ +){2} +${MEMBERS}\( -> Continue
-  ^\d+ +${CHANNEL}\(\S+ +[\w-]+ +[\w ]+ +(\S+ +){3} +${MEMBERS}\( -> Continue
+  ^\d+ +${CHANNEL}\(\S+ +[\w-]+ +${MEMBERS}\( -> Continue
+  ^\d+ +${CHANNEL}\(\S+ +[\w-]+ +\S+ +${MEMBERS}\( -> Continue
+  ^\d+ +${CHANNEL}\(\S+ +[\w-]+ +(\S+ +){2} +${MEMBERS}\( -> Continue
+  ^\d+ +${CHANNEL}\(\S+ +[\w-]+ +(\S+ +){3} +${MEMBERS}\( -> Continue

@@ -2,4 +2,4 @@ Value CHANNEL (\S+)
 Value MEMBERS ((\S+ +){1,4})
 
 Start
-  ^\d+ +${CHANNEL}\(\S+ +[\w-]+ +[\w ]+ +${MEMBERS} -> Record
+  ^\d+ +${CHANNEL}\(\S+ +[\w-]+ +${MEMBERS} -> Record
