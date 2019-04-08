@@ -36,6 +36,5 @@ def test_method_delete_link(normalized_topology_example, capsys):
     norm_top.delete_link(('R8', 'Eth0/2'), ('R9', 'Eth0/1'))
     out, err = capsys.readouterr()
     link_msg = 'Такого соединения нет\n'
-    if not out == link_msg:
-        warnings.warn(UserWarning(stdout_incorrect_warning.format(link_msg, out)))
+    assert link_msg in out
 
