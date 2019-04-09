@@ -54,7 +54,7 @@ mac                ip          vlan        interface         switch      active
 00:09:BC:3F:A6:50  192.168.10  1           FastEthernet0/7   sw1         1
 
 
-И надо тобавить такую информацию из файла:
+И надо добавить такую информацию из файла:
 MacAddress          IpAddress        Lease(sec)  Type           VLAN  Interface
 ------------------  ---------------  ----------  -------------  ----  --------------------
 00:09:BB:3D:D6:58   10.1.10.2        86250       dhcp-snooping   10    FastEthernet0/1
