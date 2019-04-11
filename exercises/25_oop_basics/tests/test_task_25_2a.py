@@ -15,6 +15,6 @@ def test_class(first_router_from_devices_yaml, r1_test_telnet_connection):
 
     correct_return_value = r1_test_telnet_connection.send_command(
         'sh ip int br', use_textfsm=True)
-    return_value = r1.send_show_command('sh ip int br', parse=True)
+    return_value = r1.send_show_command('sh ip int br', templates='templates', parse=True)
     assert correct_return_value == return_value, "Метод send_show_command возвращает неправильное значение"
 
