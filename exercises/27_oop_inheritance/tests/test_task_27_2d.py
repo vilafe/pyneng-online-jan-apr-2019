@@ -15,7 +15,7 @@ def test_class_inheritance(first_router_from_devices_yaml):
     assert isinstance(r1, CiscoIosBase), "Класс MyNetmiko должен наследовать CiscoIosBase"
     check_attr_or_method(r1, attr='send_command')
     r1.send_command('sh ip int br', strip_command=False)
-    with pytest.raises(task_27_2d.ErrorInCommand) as excinfo:
+    with pytest.raises(Exception) as excinfo:
         return_value = r1.send_config_set('lo', ignore_errors=False)
     return_value = r1.send_config_set('lo', ignore_errors=True)
     r1.disconnect()
